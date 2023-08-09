@@ -7,16 +7,19 @@ terraform {
   }
 }
 
-provider "docker" {}
-
-resource "docker_image" "nginx" {
-  name         = "nginx:latest"
-  keep_locally = false
+provider "docker" {
+  host = "unix:///var/run/docker.sock"
 }
 
-resource "docker_container" "nginx" {
-  image = docker_image.nginx.latest
-  name  = "tutorial"
+# Pulls the image
+resource "docker_image" "nginx-image" {
+  name = "nginx:latest"
+}
+
+# Create a container
+resource "docker_container" "wwww" {
+  image = docker_image.nginx-image.image_id
+  name  = "www"
   ports {
     internal = 80
     external = 30089
