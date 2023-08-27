@@ -4,11 +4,11 @@ resource "local_file" "cat" {
   count    = length(var.filename)
 }
 output "name" {
-  value = local_file.cat
+  value     = local_file.cat
   sensitive = true
 }
 terraform {
-backend "local" {
- path = "/home/cloud_user/terraform.tfstate"
-}
+  backend "local" {
+    path = "/home/cloud_user/terraform.tfstate"
+  }
 }
